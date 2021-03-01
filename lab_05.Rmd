@@ -1,7 +1,7 @@
 ---
 title: "Lab 05"
-author: ""
-date: ""
+author: "Shirley Mathur"
+date: "March 1, 2021"
 output: 
   html_document:
     toc: true
@@ -35,7 +35,7 @@ Find a pattern so only the first three components of `x` are subset.
 
 ```{r}
 x <- c("abcde", "ab", "abc", "aa")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = "a[^a]")]
 ```
 
 #### Digits: `\d`
@@ -44,14 +44,14 @@ Find a pattern so all components of `x` are subset.
 
 ```{r}
 x <- c("abc124ewi", "124jtk", "124")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = ".*124.*")]
 ```
 
 Find a pattern so all components of `x` are subset.
 
 ```{r}
 x <- c("test2", "help3", "4", "a0df")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = ".*[\\digits].*")]
 ```
 
 #### The dot: `.`
@@ -60,14 +60,14 @@ Find a pattern so only the components of `x` with a dot are subset.
 
 ```{r}
 x <- c(".png", "aei1", "first.last", "%@?.")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = ".*[\\.]+.*")]
 ```
 
 Find a pattern so all but the last component of `x` are subset.
 
 ```{r}
 x <- c("a", "\\", "b", "4", "$", "\t", "\n")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = "[^\\n]")]
 ```
 
 #### Classes: `[ ]`
@@ -76,7 +76,7 @@ Find a pattern so only the animals are subset.
 
 ```{r}
 x <- c("cat", "rat", "bat", "hat")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = "[^h]+at")]
 ```
 
 Find a pattern so only the names are subset 
@@ -84,7 +84,7 @@ Find a pattern so only the names are subset
 
 ```{r}
 x <- c("Shawn", "fawn", "Dawn", "pawn", "lawn", "Jon")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = "^[A-Z]")]
 ```
 
 #### Repititions: `{ }`, `*`, `+`
@@ -93,7 +93,7 @@ Find a pattern so only the incorrect spellings are subset.
 
 ```{r}
 x <- c("hello", "helllo", "hellllllo", "helllllllo")
-x[str_detect(x, pattern = "")]
+x[str_detect(x, pattern = "he[l]{3,}o")]
 ```
 
 Find a pattern so the first three components are matched completely. Your
@@ -101,7 +101,7 @@ result should be a 4 x 1 matrix with the value `NA` in row four.
 
 ```{r}
 x <- c("aaaabcc", "aabbbbc", "aacca", "a")
-str_match(x, pattern = "")
+str_match(x, pattern = "[a]{2,}.*")
 ```
 
 #### Optionality: `?`
@@ -112,7 +112,7 @@ result should be a 4 x 1 matrix with the value `NA` in row three.
 ```{r}
 x <- c("1 name available?", "2 names available?", "no names found!",
        "22 names available?")
-str_match(x, pattern = "")
+str_match(x, pattern = "^[\\digits]+.*")
 ```
 
 #### Anchors: `^` and `$`
@@ -123,7 +123,7 @@ result should be a 4 x 1 matrix with the value `NA` in rows two through four.
 ```{r}
 x <- c("My exam was successful", "Unfortunately, My exam was unsuccessful",
        "My exam was a success", "My exam was successful today")
-str_match(x, pattern = "")
+str_match(x, pattern = "My exam was successful$")
 ```
 
 #### Capture groups: `( )`
@@ -134,7 +134,7 @@ only the month abbreviations.
 
 ```{r}
 x <- c("Feb 11", "Sep 21", "Nov 2022", "Jun 1995")
-str_match(x, pattern = "")
+str_match(x, pattern = "([\\w]{3})\\s[\\digits]*")
 ```
 
 Find a pattern to completely match all the dates with the months as a capture
@@ -143,7 +143,7 @@ matrix with the second column being only the month abbreviations and the
 third column being the years.
 
 ```{r}
-str_match(x, pattern = "")
+str_match(x, pattern = "([\\w]{3})\\s([\\digits]*)")
 ```
 
 Find a pattern to completely match all the dates with the full date as a capture
@@ -152,7 +152,7 @@ matrix with the second column being the full date and the
 third column being the years.
 
 ```{r}
-str_match(x, pattern = "")
+str_match(x, pattern = "([\\w]{3}\\s([\\digits]*))")
 ```
 
 ## Regex challenges
